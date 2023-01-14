@@ -1,4 +1,6 @@
+import 'package:athleap/backend/coachdash.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,6 +18,7 @@ class CoachData extends StatefulWidget {
 }
 
 class _CoachDataState extends State<CoachData> {
+  final user = FirebaseAuth.instance.currentUser;
   final formkey = GlobalKey<FormState>();
   String name = "";
   String emailId = "";
@@ -31,9 +34,9 @@ class _CoachDataState extends State<CoachData> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Registration Form",
+          " Academy Registration Form",
           style: TextStyle(
-              color: Colors.white, fontFamily: "Arinoe", fontSize: 30),
+              color: Colors.white, fontFamily: "Arinoe", fontSize: 20),
         ),
       ),
       body: Center(
@@ -215,7 +218,7 @@ class _CoachDataState extends State<CoachData> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => CoachLogin())));
+                                  builder: ((context) => coachDashboard())));
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -247,9 +250,6 @@ class _CoachDataState extends State<CoachData> {
         academyName: academyName,
         sportName: sportName);
     final json = coach.toJson();
-    return coaches
-        .add(json)
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+    return coaches.doc(user!.uid.toString()).set(json);
   }
 }

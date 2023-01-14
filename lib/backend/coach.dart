@@ -33,6 +33,18 @@ class _CoachLoginState extends State<CoachLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.logout();
+              },
+              icon: Icon(
+                Icons.logout_sharp,
+                color: Colors.black,
+              ))
+        ],
         title: Text(
           "Coach Login",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -124,17 +136,15 @@ class _CoachLoginState extends State<CoachLogin> {
                   child: GestureDetector(
                       onTap: () {
                         try {
-                          final user;
                           final provider = Provider.of<GoogleSignInProvider>(
                               context,
                               listen: false);
-                          user = provider.signInWithGoogle();
-                          if (user) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => CoachData())));
-                          }
+                          provider.signInWithGoogle();
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => CoachData())));
                         } catch (e) {
                           print(e);
                         }
