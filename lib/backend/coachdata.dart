@@ -205,20 +205,25 @@ class _CoachDataState extends State<CoachData> {
                         final isValid = formkey.currentState?.validate();
                         if (isValid!) {
                           formkey.currentState?.save();
-                          createuser();
-                          final snackbar = SnackBar(
-                            content: Text(
-                              "Successfully Added!",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                            backgroundColor: Colors.black54,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => coachDashboard())));
+                          try {
+                            createuser();
+                            final snackbar = SnackBar(
+                              content: Text(
+                                "Successfully Added!",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                              backgroundColor: Colors.black54,
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackbar);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => coachDashboard())));
+                          } catch (e) {
+                            print(e);
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(

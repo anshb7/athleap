@@ -1,3 +1,4 @@
+import 'package:athleap/backend/coachdash.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,32 @@ Future main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var auth = FirebaseAuth.instance;
+  var islogin = false;
+  void checklogin() async {
+    auth.authStateChanges().listen((User? user) {
+      if (user != null && mounted) {
+        setState(() {
+          islogin = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    checklogin();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -33,7 +56,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.deepPurple,
             ),
-            home: CoachLogin()));
+            home: islogin ? coachDashboard() : HomeScreen()));
   }
 }
 
@@ -88,7 +111,7 @@ class HomeScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => CoachData()))),
+                  MaterialPageRoute(builder: ((context) => CoachLogin()))),
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
                 shape: RoundedRectangleBorder(
