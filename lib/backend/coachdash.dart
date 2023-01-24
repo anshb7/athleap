@@ -17,39 +17,61 @@ class coachDashboard extends StatefulWidget {
 }
 
 class _coachDashboardState extends State<coachDashboard> {
-  User? user = FirebaseAuth.instance.currentUser;
-  final Stream<QuerySnapshot> _studentStream = await FirebaseFirestore.instance
-      .collection("Coaches")
-      .doc( )
-      .collection("Students")
-      .get();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${user!.displayName}'s Dashboard"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                final SnackBar snackBar;
-                snackBar = SnackBar(
-                  content: Text("User is successfully signed out!"),
+        appBar: AppBar(
+          title: Text("${user!.displayName}'s Dashboard"),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  final SnackBar snackBar;
+                  snackBar = SnackBar(
+                    content: Text("User is successfully signed out!"),
+                  );
+                  FirebaseAuth.instance.signOut();
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.logout();
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => HomeScreen())));
+                },
+                icon: Icon(
+                  Icons.logout_sharp,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("Coaches")
+              .doc(user!.uid.toString())
+              .collection("Students")
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+
+            return ListView(
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return ListTile(
+                  title: Text(data['Name']),
+                  subtitle: Text(data['Age'].toString()),
                 );
-                FirebaseAuth.instance.signOut();
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.logout();
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: ((context) => HomeScreen())));
-              },
-              icon: Icon(
-                Icons.logout_sharp,
-                color: Colors.white,
-              ))
-        ],
-      ),
-    );
+              }).toList(),
+            );
+          },
+        ));
   }
 }

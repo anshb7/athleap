@@ -19,6 +19,7 @@ class CoachData extends StatefulWidget {
 
 class _CoachDataState extends State<CoachData> {
   final user = FirebaseAuth.instance.currentUser;
+
   final formkey = GlobalKey<FormState>();
   String name = "";
   String emailId = "";
