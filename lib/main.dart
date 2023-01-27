@@ -52,10 +52,9 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider.value(value: GoogleSignInProvider())
         ],
         child: MaterialApp(
-            title: 'Flutter Demo',
             theme: ThemeData(
-              primarySwatch: Colors.deepPurple,
-            ),
+                colorScheme: ColorScheme.fromSwatch()
+                    .copyWith(primary: Color.fromRGBO(83, 61, 229, 1))),
             home: islogin ? coachDashboard() : HomeScreen()));
   }
 }
@@ -67,63 +66,45 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Score!",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "Arinoe",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 35)),
+          backgroundColor: Color.fromRGBO(241, 252, 250, 1),
+          title: Align(
+            alignment: Alignment.center,
+            child: Text("Athleap",
+                style: TextStyle(
+                    color: Color.fromRGBO(83, 61, 229, 1),
+                    fontFamily: "Cera",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 35)),
+          ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 300,
-                width: 400,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fitWidth,
-                        image: AssetImage("assets/images/soccer.gif"))),
-              ),
+        body: Center(
+            child: Container(
+          height: 200,
+          width: double.infinity,
+          child: Column(children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => ParentLogin())));
+                },
+                child: Text(
+                  "Are you a parent?",
+                  style: TextStyle(fontFamily: "Cera", fontSize: 30),
+                )),
+            Text(
+              "OR",
+              style: TextStyle(fontFamily: "Cera", fontSize: 20),
             ),
-            Padding(padding: EdgeInsets.all(20)),
-            ElevatedButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => ParentLogin()))),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-              child: Text(
-                "Are you a parent?",
-                style: TextStyle(
-                    color: Colors.white, fontSize: 25, fontFamily: "Arinoe"),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                "OR",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: ((context) => CoachLogin()))),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-              child: Text(
-                "Are you a coach? ",
-                style: TextStyle(
-                    color: Colors.white, fontSize: 25, fontFamily: "Arinoe"),
-              ),
-            )
-          ],
-        ));
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => CoachLogin())));
+                },
+                child: Text(
+                  "Are you a coach?",
+                  style: TextStyle(fontFamily: "Cera", fontSize: 30),
+                ))
+          ]),
+        )));
   }
 }
