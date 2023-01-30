@@ -36,7 +36,10 @@ class _CoachLoginState extends State<CoachLogin> {
       appBar: AppBar(
         title: Text(
           "Coach Login",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Cera"),
         ),
       ),
       body: ModalProgressHUD(
@@ -52,7 +55,7 @@ class _CoachLoginState extends State<CoachLogin> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
                   child: Text(
                     "Login with Email ID!",
-                    style: TextStyle(fontSize: 25, fontFamily: "Arinoe"),
+                    style: TextStyle(fontSize: 25, fontFamily: "Cera"),
                   ),
                 ),
                 Padding(
@@ -61,6 +64,7 @@ class _CoachLoginState extends State<CoachLogin> {
                   child: TextField(
                     controller: email,
                     decoration: InputDecoration(
+                        hintStyle: TextStyle(fontFamily: "Cera"),
                         hintText: "Enter Email ID",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10))),
@@ -73,6 +77,7 @@ class _CoachLoginState extends State<CoachLogin> {
                     obscureText: true,
                     controller: password,
                     decoration: InputDecoration(
+                        hintStyle: TextStyle(fontFamily: "Cera"),
                         hintText: "Enter Password",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10))),
@@ -105,8 +110,8 @@ class _CoachLoginState extends State<CoachLogin> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 40.0, vertical: 10.0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
@@ -114,8 +119,8 @@ class _CoachLoginState extends State<CoachLogin> {
                       "Submit! ",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25,
-                          fontFamily: "Arinoe"),
+                          fontSize: 20,
+                          fontFamily: "Cera"),
                     ),
                   ),
                 ),
@@ -124,7 +129,8 @@ class _CoachLoginState extends State<CoachLogin> {
                   children: [
                     Text(
                       "New User?",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontFamily: "Cera"),
                     ),
                     TextButton(
                         onPressed: () {
@@ -135,14 +141,15 @@ class _CoachLoginState extends State<CoachLogin> {
                         },
                         child: Text(
                           "Sign up now!",
-                          style: TextStyle(color: Colors.blue),
+                          style:
+                              TextStyle(color: Colors.blue, fontFamily: "Cera"),
                         ))
                   ],
                 ),
                 Divider(),
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: GestureDetector(
+                    padding: const EdgeInsets.all(30.0),
+                    child: GestureDetector(
                       onTap: () {
                         try {
                           final provider = Provider.of<GoogleSignInProvider>(
@@ -159,12 +166,11 @@ class _CoachLoginState extends State<CoachLogin> {
                         }
                       },
                       child: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(
-                            "https://cdn2.hubspot.net/hubfs/53/image8-2.jpg"),
-                      )),
-                ),
+                          radius: 30,
+                          backgroundColor: Colors.white,
+                          backgroundImage: NetworkImage(
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png")),
+                    ))
               ],
             ),
           ),
@@ -184,5 +190,4 @@ class _CoachLoginState extends State<CoachLogin> {
   //     });
   //   });
   // }
-
 }

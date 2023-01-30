@@ -21,7 +21,10 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registration Page"),
+        title: Text(
+          "Registration Page",
+          style: TextStyle(fontFamily: "Cera"),
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: showspinner,
@@ -32,7 +35,10 @@ class _RegisterUserState extends State<RegisterUser> {
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
               child: Text(
                 "Please Fill In The Following Details:",
-                style: TextStyle(fontSize: 25, fontFamily: "Arinoe"),
+                style: TextStyle(
+                    fontSize: 15,
+                    fontFamily: "Cera",
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
@@ -40,6 +46,7 @@ class _RegisterUserState extends State<RegisterUser> {
               child: TextField(
                 controller: email,
                 decoration: InputDecoration(
+                    hintStyle: TextStyle(fontFamily: "Cera"),
                     hintText: "Enter Your Email ID",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -51,6 +58,7 @@ class _RegisterUserState extends State<RegisterUser> {
                 obscureText: true,
                 controller: password,
                 decoration: InputDecoration(
+                    hintStyle: TextStyle(fontFamily: "Cera"),
                     hintText: "Enter Desired Password",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
@@ -91,15 +99,16 @@ class _RegisterUserState extends State<RegisterUser> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
+                  fixedSize: Size(10, 90),
                   padding:
-                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                 ),
                 child: Text(
                   "Submit! ",
                   style: TextStyle(
-                      color: Colors.white, fontSize: 25, fontFamily: "Arinoe"),
+                      color: Colors.white, fontSize: 20, fontFamily: "Cera"),
                 ),
               ),
             ),

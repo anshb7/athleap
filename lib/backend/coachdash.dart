@@ -23,7 +23,10 @@ class _coachDashboardState extends State<coachDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("${user!.displayName}'s Dashboard"),
+          title: Text(
+            "${user!.displayName}'s Dashboard",
+            style: TextStyle(fontFamily: "Cera"),
+          ),
           actions: [
             IconButton(
                 onPressed: () {
