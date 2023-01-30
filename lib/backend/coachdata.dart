@@ -195,9 +195,8 @@ class _CoachDataState extends State<CoachData> {
                                   content: Text(
                                     "Successfully Added!",
                                     style: TextStyle(
-                                        fontSize: 20, color: Colors.white),
+                                        fontSize: 15, color: Colors.white),
                                   ),
-                                  backgroundColor: Colors.black54,
                                 );
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackbar);

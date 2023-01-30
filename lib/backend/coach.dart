@@ -5,6 +5,7 @@ import 'package:athleap/backend/coachdata.dart';
 import 'package:athleap/backend/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class _CoachLoginState extends State<CoachLogin> {
   bool showspinner = false;
   CollectionReference coaches =
       FirebaseFirestore.instance.collection("Coaches");
+  bool islogin = false;
+  List<String> finaldocs = [];
 
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -87,6 +90,8 @@ class _CoachLoginState extends State<CoachLogin> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () async {
+                      isTrue();
+
                       setState(() {
                         showspinner = true;
                       });
@@ -94,10 +99,26 @@ class _CoachLoginState extends State<CoachLogin> {
                         final credential = await FirebaseAuth.instance
                             .signInWithEmailAndPassword(
                                 email: email.text, password: password.text);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => CoachData())));
+                        for (var i in finaldocs) {
+                          if (i == FirebaseAuth.instance.currentUser!.uid) {
+                            islogin = true;
+                            break;
+                          } else {
+                            islogin = false;
+                          }
+                        }
+
+                        if (islogin) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => coachDashboard())));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => CoachData())));
+                        }
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           print('No user found for that email.');
@@ -177,6 +198,19 @@ class _CoachLoginState extends State<CoachLogin> {
         ),
       ),
     );
+  }
+
+  Future isTrue() async {
+    final QuerySnapshot result =
+        await FirebaseFirestore.instance.collection('Coaches').get();
+    final List<DocumentSnapshot> documents = result.docs;
+    List<String> docIds = [];
+    documents.forEach((element) {
+      String s = element.id;
+      docIds.add(s);
+    });
+    finaldocs = docIds;
+    print(finaldocs);
   }
 
   // void _onPressed() {

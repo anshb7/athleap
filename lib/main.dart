@@ -52,16 +52,17 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider.value(value: GoogleSignInProvider())
         ],
         child: MaterialApp(
-            routes: {
-              "/home": (context) =>
-                  HomeScreen(), //This is what you are missing i guess
-              "/coachlogin": (context) => CoachLogin(),
-              "/parentlogin": (context) => ParentLogin(),
-            },
-            theme: ThemeData(
-                colorScheme: ColorScheme.fromSwatch()
-                    .copyWith(primary: Color.fromRGBO(83, 61, 229, 1))),
-            home: islogin ? coachDashboard() : CoachLogin()));
+          initialRoute: '/',
+          routes: {
+            '/': (context) => islogin ? coachDashboard() : HomeScreen(),
+            '/coachlogin': (context) => CoachLogin(),
+            '/parentlogin': (context) => ParentLogin(),
+          },
+          theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                  primary: Color.fromRGBO(83, 61, 229, 1),
+                  secondary: Color.fromRGBO(83, 61, 229, 1))),
+        ));
   }
 }
 

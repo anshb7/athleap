@@ -29,18 +29,17 @@ class _coachDashboardState extends State<coachDashboard> {
           ),
           actions: [
             IconButton(
-                onPressed: () {
+                onPressed: () async {
                   final SnackBar snackBar;
                   snackBar = SnackBar(
                     content: Text("User is successfully signed out!"),
                   );
-                  FirebaseAuth.instance.signOut();
+                  await FirebaseAuth.instance.signOut();
                   final provider =
                       Provider.of<GoogleSignInProvider>(context, listen: false);
-                  provider.logout();
+                  await provider.logout();
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => HomeScreen())));
+                  Navigator.pushNamed(context, '/coachlogin');
                 },
                 icon: Icon(
                   Icons.logout_sharp,

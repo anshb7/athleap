@@ -14,9 +14,11 @@ class RegisterUser extends StatefulWidget {
 
 class _RegisterUserState extends State<RegisterUser> {
   final _auth = FirebaseAuth.instance;
+  bool islogin = false;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool showspinner = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
