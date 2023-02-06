@@ -65,6 +65,7 @@ class _CoachLoginState extends State<CoachLogin> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
                   child: TextField(
+                    style: TextStyle(fontFamily: "Cera"),
                     controller: email,
                     decoration: InputDecoration(
                         hintStyle: TextStyle(fontFamily: "Cera"),
@@ -77,6 +78,7 @@ class _CoachLoginState extends State<CoachLogin> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
                   child: TextField(
+                    style: TextStyle(fontFamily: "Cera"),
                     obscureText: true,
                     controller: password,
                     decoration: InputDecoration(
@@ -107,6 +109,7 @@ class _CoachLoginState extends State<CoachLogin> {
                             islogin = false;
                           }
                         }
+                        setState(() {});
 
                         if (islogin) {
                           Navigator.push(
@@ -168,30 +171,6 @@ class _CoachLoginState extends State<CoachLogin> {
                   ],
                 ),
                 Divider(),
-                Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        try {
-                          final provider = Provider.of<GoogleSignInProvider>(
-                              context,
-                              listen: false);
-                          provider.signInWithGoogle();
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => CoachData())));
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.white,
-                          backgroundImage: NetworkImage(
-                              "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png")),
-                    ))
               ],
             ),
           ),

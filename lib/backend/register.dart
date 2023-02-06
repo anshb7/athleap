@@ -46,6 +46,7 @@ class _RegisterUserState extends State<RegisterUser> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
               child: TextField(
+                style: TextStyle(fontFamily: "Cera"),
                 controller: email,
                 decoration: InputDecoration(
                     hintStyle: TextStyle(fontFamily: "Cera"),
@@ -57,6 +58,7 @@ class _RegisterUserState extends State<RegisterUser> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
               child: TextField(
+                style: TextStyle(fontFamily: "Cera"),
                 obscureText: true,
                 controller: password,
                 decoration: InputDecoration(
@@ -83,10 +85,7 @@ class _RegisterUserState extends State<RegisterUser> {
                       password: password.text,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => CoachLogin())));
+                    Navigator.pushNamed(context, '/coachlogin');
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
                       print('The password provided is too weak.');
@@ -101,7 +100,6 @@ class _RegisterUserState extends State<RegisterUser> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  fixedSize: Size(10, 90),
                   padding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                   shape: RoundedRectangleBorder(

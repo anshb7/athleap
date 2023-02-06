@@ -1,4 +1,5 @@
 import 'package:athleap/backend/coachdash.dart';
+import 'package:athleap/backend/profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +55,8 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           initialRoute: '/',
           routes: {
-            '/': (context) => islogin ? coachDashboard() : HomeScreen(),
+            '/': (context) =>
+                ProfilePage(), //islogin ? coachDashboard() : HomeScreen()//,
             '/coachlogin': (context) => CoachLogin(),
             '/parentlogin': (context) => ParentLogin(),
           },
@@ -81,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                     color: Color.fromRGBO(83, 61, 229, 1),
                     fontFamily: "Cera",
                     fontWeight: FontWeight.bold,
-                    fontSize: 35)),
+                    fontSize: 30)),
           ),
         ),
         body: Center(

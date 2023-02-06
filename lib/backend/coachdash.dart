@@ -17,15 +17,27 @@ class coachDashboard extends StatefulWidget {
 }
 
 class _coachDashboardState extends State<coachDashboard> {
-  final user = FirebaseAuth.instance.currentUser;
+  var user = FirebaseAuth.instance.currentUser;
+  String s = "";
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection("Coaches")
+        .doc(user!.uid.toString())
+        .get()
+        .then((value) => {s = value.data()!['name']});
+    setState(() {});
+
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "${user!.displayName}'s Dashboard",
-            style: TextStyle(fontFamily: "Cera"),
+          automaticallyImplyLeading: false,
+          title: Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Dashboard",
+              style: TextStyle(fontFamily: "Cera"),
+            ),
           ),
           actions: [
             IconButton(
@@ -34,12 +46,14 @@ class _coachDashboardState extends State<coachDashboard> {
                   snackBar = SnackBar(
                     content: Text("User is successfully signed out!"),
                   );
-                  await FirebaseAuth.instance.signOut();
-                  final provider =
-                      Provider.of<GoogleSignInProvider>(context, listen: false);
-                  await provider.logout();
+                  FirebaseAuth.instance.signOut();
+
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Navigator.pushNamed(context, '/coachlogin');
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                      (route) => false);
                 },
                 icon: Icon(
                   Icons.logout_sharp,

@@ -72,6 +72,7 @@ class _CoachDataState extends State<CoachData> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 30),
                         child: TextFormField(
+                          style: TextStyle(fontFamily: "Cera"),
                           validator: (value) {
                             if (isInt(value.toString())) {
                               return "Invalid Input";
@@ -100,6 +101,7 @@ class _CoachDataState extends State<CoachData> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 30),
                         child: TextFormField(
+                          style: TextStyle(fontFamily: "Cera"),
                           autocorrect: true,
                           decoration: InputDecoration(
                               labelStyle: TextStyle(fontFamily: "Cera"),
@@ -129,6 +131,7 @@ class _CoachDataState extends State<CoachData> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 30),
                         child: TextFormField(
+                          style: TextStyle(fontFamily: "Cera"),
                           autocorrect: true,
                           decoration: InputDecoration(
                               labelStyle: TextStyle(fontFamily: "Cera"),
@@ -157,6 +160,7 @@ class _CoachDataState extends State<CoachData> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 30),
                         child: TextFormField(
+                          style: TextStyle(fontFamily: "Cera"),
                           autocorrect: true,
                           decoration: InputDecoration(
                               labelStyle: TextStyle(fontFamily: "Cera"),
