@@ -23,13 +23,13 @@ class _coachDashboardState extends State<coachDashboard> {
   String s = "";
   studentInfo student = studentInfo(
       name: "",
-      age: 0,
-      speed: 0,
-      agility: 0,
-      coordination: 0,
-      flexibility: 0,
-      reactionTime: 0,
-      strength: 0);
+      age: "",
+      speed: "",
+      agility: "",
+      coordination: "",
+      flexibility: "",
+      reactionTime: "",
+      strength: "");
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _coachDashboardState extends State<coachDashboard> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Align(
-            alignment: Alignment.center,
+            alignment: Alignment.bottomLeft,
             child: Text(
               "Dashboard",
               style: TextStyle(fontFamily: "Cera"),
@@ -97,20 +97,20 @@ class _coachDashboardState extends State<coachDashboard> {
                     student = studentInfo(
                         name: data['Name'],
                         age: data['Age'],
-                        speed: double.parse(data['speed']),
-                        agility: double.parse(data['agility']),
-                        coordination: double.parse(data['coordination']),
-                        flexibility: double.parse(data['flexibility']),
-                        reactionTime: double.parse(data['reactionTime']),
-                        strength: double.parse(data['strength']));
+                        speed: data['speed'],
+                        agility: data['agility'],
+                        coordination: data['coordination'],
+                        flexibility: data['flexibility'],
+                        reactionTime: data['reactionTime'],
+                        strength: data['strength']);
 
                     setState(() {});
 
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => ProfilePage(student: student),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfilePage(student: student),
+                        ));
                   },
                   title: Text(data['Name']),
                   subtitle: Text(data['Age'].toString()),

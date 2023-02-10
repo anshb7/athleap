@@ -5,13 +5,13 @@ import 'package:flutter/physics.dart';
 
 class studentInfo with ChangeNotifier {
   String name = "";
-  double speed = 0;
-  double agility = 0;
-  double reactionTime = 0;
-  double flexibility = 0;
-  double strength = 0;
-  double age = 0;
-  double coordination = 0;
+  String speed = "";
+  String agility = "";
+  String reactionTime = "";
+  String flexibility = "";
+  String strength = "";
+  String age = "";
+  String coordination = "";
 
   studentInfo(
       {required this.name,
