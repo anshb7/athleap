@@ -1,3 +1,5 @@
+import 'package:athleap/backend/profilepage.dart';
+import 'package:athleap/info/studentinfo.dart';
 import 'package:athleap/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,15 @@ class coachDashboard extends StatefulWidget {
 class _coachDashboardState extends State<coachDashboard> {
   var user = FirebaseAuth.instance.currentUser;
   String s = "";
+  studentInfo student = studentInfo(
+      name: "",
+      age: 0,
+      speed: 0,
+      agility: 0,
+      coordination: 0,
+      flexibility: 0,
+      reactionTime: 0,
+      strength: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +85,7 @@ class _coachDashboardState extends State<coachDashboard> {
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
+              return CircularProgressIndicator();
             }
 
             return ListView(
@@ -82,6 +93,25 @@ class _coachDashboardState extends State<coachDashboard> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 return ListTile(
+                  onTap: () {
+                    student = studentInfo(
+                        name: data['Name'],
+                        age: data['Age'],
+                        speed: double.parse(data['speed']),
+                        agility: double.parse(data['agility']),
+                        coordination: double.parse(data['coordination']),
+                        flexibility: double.parse(data['flexibility']),
+                        reactionTime: double.parse(data['reactionTime']),
+                        strength: double.parse(data['strength']));
+
+                    setState(() {});
+
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => ProfilePage(student: student),
+                    //     ));
+                  },
                   title: Text(data['Name']),
                   subtitle: Text(data['Age'].toString()),
                 );

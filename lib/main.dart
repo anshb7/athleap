@@ -55,8 +55,7 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           initialRoute: '/',
           routes: {
-            '/': (context) =>
-                ProfilePage(), //islogin ? coachDashboard() : HomeScreen()//,
+            '/': (context) => islogin ? coachDashboard() : HomeScreen(),
             '/coachlogin': (context) => CoachLogin(),
             '/parentlogin': (context) => ParentLogin(),
           },

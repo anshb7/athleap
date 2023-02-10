@@ -1,15 +1,17 @@
+import 'dart:ffi';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/physics.dart';
 
 class studentInfo with ChangeNotifier {
   String name = "";
-  int speed = 0;
-  int agility = 0;
-  int reactionTime = 0;
-  int flexibility = 0;
-  int strength = 0;
-  int age = 0;
-  int coordination = 0;
+  double speed = 0;
+  double agility = 0;
+  double reactionTime = 0;
+  double flexibility = 0;
+  double strength = 0;
+  double age = 0;
+  double coordination = 0;
 
   studentInfo(
       {required this.name,
