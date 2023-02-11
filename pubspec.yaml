@@ -45,6 +45,8 @@ dependencies:
   responsive_framework: ^0.2.0
   styled_widget: ^0.4.1
   motion_tab_bar: ^0.1.5
+  animated_bottom_navigation_bar: ^1.1.0+1
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:

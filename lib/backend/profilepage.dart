@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: CircleAvatar(
                               radius: 45,
                               backgroundImage: NetworkImage(
-                                  "https://media.licdn.com/dms/image/D4D03AQGWG7TV3CNDsg/profile-displayphoto-shrink_800_800/0/1672670019852?e=1681344000&v=beta&t=1ND4iOJBv5Q6uQ92ixrAgb7-lkwavbpWg1vY-ywHPQU"),
+                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                             ),
                           ),
                         ),
@@ -76,10 +76,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                               style: TextStyle(
                                                   fontFamily: "Cera",
                                                   color: Colors.black)),
-                                          Text(widget.student.name,
-                                              style: TextStyle(
-                                                  fontFamily: "Cera",
-                                                  color: Colors.black))
+                                          Center(
+                                            child: Text(widget.student.name,
+                                                style: TextStyle(
+                                                    fontFamily: "Cera",
+                                                    color: Colors.black)),
+                                          )
                                         ],
                                       ),
                                       SizedBox(),
@@ -113,10 +115,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   style: TextStyle(
                                                       fontFamily: "Cera",
                                                       color: Colors.black)),
-                                              Text("PBC",
-                                                  style: TextStyle(
-                                                      fontFamily: "Cera",
-                                                      color: Colors.black))
+                                              Center(
+                                                child: Text("PBC",
+                                                    style: TextStyle(
+                                                        fontFamily: "Cera",
+                                                        color: Colors.black)),
+                                              )
                                             ]),
                                       )
                                     ]),
@@ -159,39 +163,42 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 6,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          metrics[index],
-                          style: TextStyle(fontFamily: "Cera", fontSize: 20),
-                        )),
-                    Card(
-                        elevation: 8,
-                        child: LinearProgressIndicator(
-                          minHeight: 30,
-                          value: double.parse(metricvalues[index]),
-                        ) // ListTile(
+          Container(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            metrics[index],
+                            style: TextStyle(fontFamily: "Cera", fontSize: 20),
+                          )),
+                      Card(
+                          elevation: 8,
+                          child: LinearProgressIndicator(
+                            semanticsLabel: "al",
+                            minHeight: 30,
+                            value: double.parse(metricvalues[index]),
+                          ) // ListTile(
 
-                        //   shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(8)),
-                        //   tileColor: Colors.blueGrey,
-                        //   onTap: () {
-                        //     print("yes");
-                        //   },
-                        // ),
-                        ),
-                  ],
-                ),
-              );
-            },
+                          //   shape: RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.circular(8)),
+                          //   tileColor: Colors.blueGrey,
+                          //   onTap: () {
+                          //     print("yes");
+                          //   },
+                          // ),
+                          ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ]),
       ),
