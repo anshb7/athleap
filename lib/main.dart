@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider.value(value: GoogleSignInProvider())
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
             '/': (context) => islogin ? coachDashboard() : HomeScreen(),

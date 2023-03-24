@@ -50,15 +50,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Center(
                           child: Center(
                             child: CircleAvatar(
-                              radius: 45,
-                              backgroundImage: NetworkImage(
-                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+                              radius: 50,
+                              backgroundColor: Colors.white,
+                              child: CircleAvatar(
+                                radius: 45,
+                                backgroundImage: NetworkImage(
+                                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+                              ),
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 1),
@@ -140,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     ],
                   ),
-                  height: 220,
+                  height: 250,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Color.fromRGBO(83, 61, 229, 1),

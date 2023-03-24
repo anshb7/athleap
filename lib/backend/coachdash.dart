@@ -13,6 +13,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:athleap/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:athleap/backend/leaderboard.dart';
 
 class coachDashboard extends StatefulWidget {
   const coachDashboard({super.key});
@@ -24,7 +25,7 @@ class coachDashboard extends StatefulWidget {
 class _coachDashboardState extends State<coachDashboard> {
   int ind = 0;
   var appbartitiles = ["Dashboard", "Leaderboard", "Coach Profile"];
-  var screens = [studentslist(), Leaderboard(), coachprofile()];
+  var screens = [studentslist(), LeaderboardPage(), coachprofile()];
   var user = FirebaseAuth.instance.currentUser;
   String s = "";
   studentInfo student = studentInfo(
@@ -47,43 +48,50 @@ class _coachDashboardState extends State<coachDashboard> {
     setState(() {});
 
     return Scaffold(
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(shape: BoxShape.rectangle),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 20,
+                  color: Colors.black.withOpacity(.1),
+                )
+              ],
+            ),
             child: GNav(
-                backgroundColor: Colors.white,
-                activeColor: Colors.white,
-                tabBackgroundColor: Color.fromRGBO(83, 61, 229, 1),
-                color: Color.fromRGBO(83, 61, 229, 1),
-                tabBorderRadius: 10,
-                padding: EdgeInsets.all(16),
-                gap: 8,
-                onTabChange: (index) {
-                  setState(() {
-                    ind = index;
-                  });
-                },
-                tabs: [
-                  GButton(
-                    textStyle:
-                        TextStyle(fontFamily: "Cera", color: Colors.white),
-                    icon: Icons.dashboard,
-                    text: "Dashboard",
-                  ),
-                  GButton(
-                    textStyle:
-                        TextStyle(fontFamily: "Cera", color: Colors.white),
-                    icon: Icons.leaderboard,
-                    text: "Leaderboard",
-                  ),
-                  GButton(
-                    textStyle:
-                        TextStyle(fontFamily: "Cera", color: Colors.white),
-                    icon: Icons.face,
-                    text: "Profile",
-                  )
-                ]),
+              iconSize: 24,
+              backgroundColor: Colors.white,
+              activeColor: Colors.white,
+              tabBackgroundColor: Color.fromRGBO(83, 61, 229, 1),
+              color: Color.fromRGBO(83, 61, 229, 1),
+              tabBorderRadius: 15,
+              padding: EdgeInsets.all(16),
+              gap: 8,
+              onTabChange: (index) {
+                setState(() {
+                  ind = index;
+                });
+              },
+              tabs: [
+                GButton(
+                  textStyle: TextStyle(fontFamily: "Cera", color: Colors.white),
+                  icon: Icons.dashboard,
+                  text: "Dashboard",
+                ),
+                GButton(
+                  textStyle: TextStyle(fontFamily: "Cera", color: Colors.white),
+                  icon: Icons.leaderboard,
+                  text: "Leaderboard",
+                ),
+                GButton(
+                  textStyle: TextStyle(fontFamily: "Cera", color: Colors.white),
+                  icon: Icons.face,
+                  text: "Profile",
+                )
+              ],
+            ),
           ),
         ),
         extendBody: true,
