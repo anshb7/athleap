@@ -3,6 +3,7 @@ import 'package:athleap/backend/leaderboard.dart';
 import 'package:athleap/backend/profilepage.dart';
 import 'package:athleap/info/studentinfo.dart';
 import 'package:athleap/main.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -48,60 +49,31 @@ class _coachDashboardState extends State<coachDashboard> {
     setState(() {});
 
     return Scaffold(
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 20,
-                  color: Colors.black.withOpacity(.1),
-                )
-              ],
-            ),
-            child: GNav(
-              iconSize: 24,
-              backgroundColor: Colors.white,
-              activeColor: Colors.white,
-              tabBackgroundColor: Color.fromRGBO(83, 61, 229, 1),
-              color: Color.fromRGBO(83, 61, 229, 1),
-              tabBorderRadius: 15,
-              padding: EdgeInsets.all(16),
-              gap: 8,
-              onTabChange: (index) {
-                setState(() {
-                  ind = index;
-                });
-              },
-              tabs: [
-                GButton(
-                  textStyle: TextStyle(fontFamily: "Cera", color: Colors.white),
-                  icon: Icons.dashboard,
-                  text: "Dashboard",
-                ),
-                GButton(
-                  textStyle: TextStyle(fontFamily: "Cera", color: Colors.white),
-                  icon: Icons.leaderboard,
-                  text: "Leaderboard",
-                ),
-                GButton(
-                  textStyle: TextStyle(fontFamily: "Cera", color: Colors.white),
-                  icon: Icons.face,
-                  text: "Profile",
-                )
-              ],
-            ),
-          ),
-        ),
+        backgroundColor: Color.fromRGBO(83, 61, 229, 1),
+        bottomNavigationBar: CurvedNavigationBar(
+            height: 60,
+            animationDuration: Duration(milliseconds: 400),
+            backgroundColor: Color.fromRGBO(83, 61, 229, 1),
+            onTap: (value) {
+              setState(() {
+                ind = value;
+              });
+            },
+            items: [
+              Icon(Icons.dashboard_customize_rounded),
+              Icon(Icons.leaderboard),
+              Icon(Icons.looks)
+            ]),
         extendBody: true,
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           automaticallyImplyLeading: false,
           title: Align(
             alignment: Alignment.bottomLeft,
             child: Text(
               appbartitiles[ind],
-              style: TextStyle(fontFamily: "Cera"),
+              style: TextStyle(fontFamily: "Cera", color: Colors.white),
             ),
           ),
           actions: [
@@ -176,6 +148,8 @@ class _studentslistState extends State<studentslist> {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                     elevation: 5,
                     shadowColor: Color.fromRGBO(83, 61, 229, 1),
                     child: ListTile(

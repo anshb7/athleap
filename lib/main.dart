@@ -1,5 +1,6 @@
 import 'package:athleap/backend/coachdash.dart';
 import 'package:athleap/backend/profilepage.dart';
+import 'package:athleap/frontend/landingpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,8 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) => islogin ? coachDashboard() : HomeScreen(),
+            '/': (context) =>
+                landingpage(), //islogin ? coachDashboard() : HomeScreen(),
             '/coachlogin': (context) => CoachLogin(),
             '/parentlogin': (context) => ParentLogin(),
           },

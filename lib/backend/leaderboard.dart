@@ -21,6 +21,11 @@ class LeaderboardPage extends StatefulWidget {
 }
 
 class _LeaderboardPageState extends State<LeaderboardPage> {
+  // final leaders  =  FirebaseFirestore.instance
+  //     .collection("Coaches")
+  //     .doc(user!.uid.toString())
+  //     .collection("Students").limit(3)
+  //     .get();
   final user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -32,19 +37,73 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
         child: Column(
           children: [
             Container(
-              child: Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CircleAvatar(
-                      minRadius: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 150,
+                    width: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          child: Card(
+                            elevation: 20,
+                          ),
+                          minRadius: 30,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("2nd",
+                              style: TextStyle(
+                                  fontFamily: "Cera", color: Colors.black)),
+                        )
+                      ],
                     ),
-                    CircleAvatar(
-                      minRadius: 40,
+                  ),
+                  Container(
+                    height: 150,
+                    width: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          child: Card(
+                            elevation: 20,
+                          ),
+                          minRadius: 50,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("1st",
+                              style: TextStyle(
+                                  fontFamily: "Cera", color: Colors.black)),
+                        )
+                      ],
                     ),
-                    CircleAvatar(),
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 150,
+                    width: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          child: Card(
+                            elevation: 20,
+                          ),
+                          minRadius: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("3rd",
+                              style: TextStyle(
+                                  fontFamily: "Cera", color: Colors.black)),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -82,6 +141,8 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                             Map<String, dynamic> data =
                                 document.data()! as Map<String, dynamic>;
                             return Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
                               elevation: 5,
                               shadowColor: Color.fromRGBO(83, 61, 229, 1),
                               child: ListTile(
