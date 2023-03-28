@@ -51,6 +51,9 @@ class _coachDashboardState extends State<coachDashboard> {
     return Scaffold(
         backgroundColor: Color.fromRGBO(83, 61, 229, 1),
         bottomNavigationBar: CurvedNavigationBar(
+            color: Color.fromRGBO(37, 38, 50, 1),
+            buttonBackgroundColor: Color.fromRGBO(255, 202, 46, 1),
+            animationCurve: Curves.easeIn,
             height: 60,
             animationDuration: Duration(milliseconds: 400),
             backgroundColor: Color.fromRGBO(83, 61, 229, 1),
@@ -60,9 +63,15 @@ class _coachDashboardState extends State<coachDashboard> {
               });
             },
             items: [
-              Icon(Icons.dashboard_customize_rounded),
-              Icon(Icons.leaderboard),
-              Icon(Icons.looks)
+              Icon(
+                Icons.dashboard_customize_rounded,
+                color: Colors.white,
+              ),
+              Icon(Icons.leaderboard, color: Colors.white),
+              Icon(
+                Icons.person,
+                color: Colors.white,
+              )
             ]),
         extendBody: true,
         appBar: AppBar(
@@ -136,13 +145,18 @@ class _studentslistState extends State<studentslist> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(
+              child: CircularProgressIndicator(
+            color: Colors.white,
+          ));
         }
 
-        return Center(
+        return SingleChildScrollView(
           child: Column(
             children: [
               ListView(
+                controller: ScrollController(),
+                scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =

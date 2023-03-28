@@ -33,9 +33,12 @@ class _ProfilePageState extends State<ProfilePage> {
       widget.student.flexibility
     ];
     return Scaffold(
-      backgroundColor: Color.fromRGBO(250, 249, 246, 1),
+      backgroundColor: Color.fromRGBO(255, 202, 46, 1),
       body: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(
+            height: 50,
+          ),
           Padding(
             padding: EdgeInsets.all(0),
             child: Center(
@@ -51,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Center(
                             child: CircleAvatar(
                               radius: 50,
-                              backgroundColor: Colors.white,
+                              backgroundColor: Colors.yellow,
                               child: CircleAvatar(
                                 radius: 45,
                                 backgroundImage: NetworkImage(
@@ -173,14 +176,35 @@ class _ProfilePageState extends State<ProfilePage> {
               itemCount: 6,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     children: [
                       Align(
                           alignment: Alignment.bottomLeft,
-                          child: Text(
-                            metrics[index],
-                            style: TextStyle(fontFamily: "Cera", fontSize: 20),
+                          child: Row(
+                            children: [
+                              Text(
+                                metrics[index],
+                                style: TextStyle(
+                                    fontFamily: "Cera",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                child: Text(
+                                  ":",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                width: 10,
+                              ),
+                              Text(
+                                '${double.parse(metricvalues[index]) * 100} %',
+                                style: TextStyle(
+                                    fontFamily: "Cera",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           )),
                       Card(
                           elevation: 8,
