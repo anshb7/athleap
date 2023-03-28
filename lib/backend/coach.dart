@@ -36,141 +36,185 @@ class _CoachLoginState extends State<CoachLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(255, 202, 46, 1),
       appBar: AppBar(
-        title: Text(
-          "Coach Login",
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Cera"),
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: ModalProgressHUD(
         inAsyncCall: showspinner,
         child: Container(
-          alignment: Alignment.center,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
-                  child: Text(
-                    "Login with Email ID!",
-                    style: TextStyle(fontSize: 25, fontFamily: "Cera"),
-                  ),
+                Text(
+                  "Coach Login",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Color.fromRGBO(83, 61, 229, 1),
+                      fontFamily: "Cera",
+                      fontSize: 40),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
-                  child: TextField(
-                    style: TextStyle(fontFamily: "Cera"),
-                    controller: email,
-                    decoration: InputDecoration(
-                        hintStyle: TextStyle(fontFamily: "Cera"),
-                        hintText: "Enter Email ID",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                  ),
+                SizedBox(
+                  height: 200,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
-                  child: TextField(
-                    style: TextStyle(fontFamily: "Cera"),
-                    obscureText: true,
-                    controller: password,
-                    decoration: InputDecoration(
-                        hintStyle: TextStyle(fontFamily: "Cera"),
-                        hintText: "Enter Password",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      isTrue();
-
-                      setState(() {
-                        showspinner = true;
-                      });
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: email.text, password: password.text);
-                        for (var i in finaldocs) {
-                          if (i == FirebaseAuth.instance.currentUser!.uid) {
-                            islogin = true;
-                            break;
-                          } else {
-                            islogin = false;
-                          }
-                        }
-                        setState(() {});
-
-                        if (islogin) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => coachDashboard())));
-                        } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => CoachData())));
-                        }
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
-                        }
-                      }
-                      setState(() {
-                        showspinner = false;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                    child: Text(
-                      "Submit! ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: "Cera"),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "New User?",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontFamily: "Cera"),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => RegisterUser())));
-                        },
+                Card(
+                  elevation: 8,
+                  color: Color.fromRGBO(83, 61, 229, 1),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 30),
                         child: Text(
-                          "Sign up now!",
-                          style:
-                              TextStyle(color: Colors.blue, fontFamily: "Cera"),
-                        ))
-                  ],
+                          "Login with Email ID!",
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: "Cera",
+                              color: Colors.white),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 30),
+                        child: TextField(
+                          cursorColor: Colors.white,
+                          style: TextStyle(
+                              fontFamily: "Cera", color: Colors.white),
+                          controller: email,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: Color.fromRGBO(255, 202, 46, 1))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1, color: Colors.white)),
+                              hintStyle: TextStyle(
+                                  fontFamily: "Cera", color: Colors.white),
+                              hintText: "Enter Email ID",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 30),
+                        child: TextField(
+                          cursorColor: Colors.white,
+                          style: TextStyle(
+                              fontFamily: "Cera", color: Colors.white),
+                          obscureText: true,
+                          controller: password,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1,
+                                      color: Color.fromRGBO(255, 202, 46, 1))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1, color: Colors.white)),
+                              hintStyle: TextStyle(
+                                  fontFamily: "Cera", color: Colors.white),
+                              hintText: "Enter Password",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            isTrue();
+
+                            setState(() {
+                              showspinner = true;
+                            });
+                            try {
+                              final credential = await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: email.text,
+                                      password: password.text);
+                              for (var i in finaldocs) {
+                                if (i ==
+                                    FirebaseAuth.instance.currentUser!.uid) {
+                                  islogin = true;
+                                  break;
+                                } else {
+                                  islogin = false;
+                                }
+                              }
+                              setState(() {});
+
+                              if (islogin) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            coachDashboard())));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => CoachData())));
+                              }
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'user-not-found') {
+                                print('No user found for that email.');
+                              } else if (e.code == 'wrong-password') {
+                                print('Wrong password provided for that user.');
+                              }
+                            }
+                            setState(() {
+                              showspinner = false;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 5.0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                          ),
+                          child: Text(
+                            "Submit! ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: "Cera"),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "New User?",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Cera",
+                                color: Colors.white),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            RegisterUser())));
+                              },
+                              child: Text(
+                                "Sign up now!",
+                                style: TextStyle(
+                                    color: Color.fromRGBO(255, 202, 46, 1),
+                                    fontFamily: "Cera"),
+                              ))
+                        ],
+                      ),
+                      Divider(),
+                    ],
+                  ),
                 ),
-                Divider(),
               ],
             ),
           ),

@@ -12,6 +12,8 @@ class coachprofile extends StatefulWidget {
 class _coachprofileState extends State<coachprofile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(83, 61, 229, 1),
+    );
   }
 }
