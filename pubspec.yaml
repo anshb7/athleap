@@ -53,6 +53,7 @@ dependencies:
   auto_size_text: ^3.0.0
   shimmer: ^2.0.0
   page_transition: ^2.0.9
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:
