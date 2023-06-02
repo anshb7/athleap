@@ -67,7 +67,6 @@ class _coachDashboardState extends State<coachDashboard> {
             items: [
               Icon(Icons.dashboard_sharp, color: Colors.white),
               Icon(Icons.leaderboard, color: Colors.white),
-              Icon(Icons.person, color: Colors.white)
             ]),
         extendBody: true,
         appBar: AppBar(
