@@ -159,64 +159,76 @@ class _studentslistState extends State<studentslist> {
               ));
             }
 
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  ListView(
-                    controller: ScrollController(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        elevation: 5,
-                        shadowColor: Color.fromRGBO(83, 61, 229, 1),
-                        child: ListTile(
+            return RefreshIndicator(
+              strokeWidth: 3,
+              onRefresh: () async {
+                await FirebaseFirestore.instance
+                    .collection("Coaches")
+                    .doc(user!.uid.toString())
+                    .collection("Students")
+                    .snapshots();
+                setState(() {});
+              },
+              child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    ListView(
+                      controller: ScrollController(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
-                          tileColor: Color.fromRGBO(255, 202, 46, 1),
-                          onTap: () {
-                            student = studentInfo(
-                                name: data['Name'],
-                                age: data['Age'],
-                                speed: data['speed'],
-                                agility: data['agility'],
-                                coordination: data['coordination'],
-                                flexibility: data['flexibility'],
-                                reactionTime: data['reactionTime'],
-                                strength: data['strength']);
+                          elevation: 5,
+                          shadowColor: Color.fromRGBO(83, 61, 229, 1),
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            tileColor: Color.fromRGBO(255, 202, 46, 1),
+                            onTap: () {
+                              student = studentInfo(
+                                  name: data['Name'],
+                                  age: data['Age'],
+                                  speed: data['speed'],
+                                  agility: data['agility'],
+                                  coordination: data['coordination'],
+                                  flexibility: data['flexibility'],
+                                  reactionTime: data['reactionTime'],
+                                  strength: data['strength']);
 
-                            setState(() {});
+                              setState(() {});
 
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfilePage(student: student),
-                                ));
-                          },
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProfilePage(student: student),
+                                  ));
+                            },
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                            ),
+                            title: Text(
+                              data['Name'],
+                              style: TextStyle(fontFamily: "Cera"),
+                            ),
+                            subtitle: Text(
+                              "Age: "
+                              "${data['Age'].toString()}",
+                              style: TextStyle(fontFamily: "Cera"),
+                            ),
                           ),
-                          title: Text(
-                            data['Name'],
-                            style: TextStyle(fontFamily: "Cera"),
-                          ),
-                          subtitle: Text(
-                            "Age: "
-                            "${data['Age'].toString()}",
-                            style: TextStyle(fontFamily: "Cera"),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
               ),
             );
           },
