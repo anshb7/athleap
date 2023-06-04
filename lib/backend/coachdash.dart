@@ -1,6 +1,7 @@
 import 'package:athleap/backend/coachprofile.dart';
 import 'package:athleap/backend/leaderboard.dart';
 import 'package:athleap/backend/profilepage.dart';
+import 'package:athleap/frontend/shimmer.dart';
 import 'package:athleap/info/studentinfo.dart';
 import 'package:athleap/main.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -15,6 +16,8 @@ import 'package:athleap/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:athleap/backend/leaderboard.dart';
+import 'package:athleap/frontend/skeleton.dart';
+import 'package:athleap/frontend/shimmer.dart';
 
 class coachDashboard extends StatefulWidget {
   const coachDashboard({super.key});
@@ -153,10 +156,19 @@ class _studentslistState extends State<studentslist> {
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child: CircularProgressIndicator(
-                color: Colors.white,
-              ));
+              return Expanded(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: 10,
+                    );
+                  },
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return MyWidget();
+                  },
+                ),
+              );
             }
 
             return RefreshIndicator(
