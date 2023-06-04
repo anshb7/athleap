@@ -1,6 +1,7 @@
 import 'package:athleap/backend/coachdash.dart';
 import 'package:athleap/backend/profilepage.dart';
 import 'package:athleap/frontend/landingpage.dart';
+import 'package:athleap/frontend/splash.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -31,24 +32,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var auth = FirebaseAuth.instance;
-  var islogin = false;
-  void checklogin() async {
-    auth.authStateChanges().listen((User? user) {
-      if (user != null && mounted) {
-        setState(() {
-          islogin = true;
-        });
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    checklogin();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -70,7 +53,8 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) => islogin ? coachDashboard() : landingpage(),
+            '/': (context) =>
+                Splash(), //islogin ? coachDashboard() : landingpage(),
             'loginscreen': (context) => HomeScreen(),
             '/coachlogin': (context) => CoachLogin(),
             '/parentlogin': (context) => ParentLogin(),

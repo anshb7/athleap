@@ -33,11 +33,26 @@ class _ProfilePageState extends State<ProfilePage> {
       widget.student.flexibility
     ];
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       backgroundColor: Color.fromRGBO(255, 202, 46, 1),
       body: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           SizedBox(
-            height: 50,
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text("Player Profile",
+                    style: TextStyle(
+                        fontFamily: "Cera",
+                        color: Color.fromRGBO(83, 61, 229, 1),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30))),
           ),
           Padding(
             padding: EdgeInsets.all(0),
@@ -172,6 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Container(
             child: ListView.builder(
+              controller: ScrollController(),
               shrinkWrap: true,
               itemCount: 6,
               itemBuilder: (context, index) {
