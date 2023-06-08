@@ -1,5 +1,6 @@
 import 'package:athleap/backend/coachdash.dart';
 import 'package:athleap/backend/profilepage.dart';
+import 'package:athleap/backend/studentlogin.dart';
 import 'package:athleap/frontend/landingpage.dart';
 import 'package:athleap/frontend/splash.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -17,6 +18,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:athleap/provider/googlesignin.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:athleap/backend/studentlogin.dart';
+import 'package:athleap/backend/studentdata.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +40,6 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider.value(value: Coaches()),
-          ChangeNotifierProvider.value(value: GoogleSignInProvider())
         ],
         child: MaterialApp(
           builder: (context, child) => ResponsiveWrapper.builder(child,
@@ -53,11 +55,13 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) =>
-                Splash(), //islogin ? coachDashboard() : landingpage(),
+            '/': (context) => StudentLogin(),
+            //Splash(), //islogin ? coachDashboard() : landingpage(),
             'loginscreen': (context) => HomeScreen(),
             '/coachlogin': (context) => CoachLogin(),
             '/parentlogin': (context) => ParentLogin(),
+            '/coachdata': (context) => CoachData(),
+            '/studentdata': (context) => studentdata(),
           },
           theme: ThemeData(
               colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -85,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                       MaterialPageRoute(builder: ((context) => ParentLogin())));
                 },
                 child: AutoSizeText(
-                  "Are you a parent?",
+                  "Are you a Student?",
                   style: TextStyle(
                     fontFamily: "Cera",
                     fontSize: 45,

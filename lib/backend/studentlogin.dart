@@ -15,15 +15,17 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:athleap/provider/googlesignin.dart';
+import 'package:athleap/provider/googlesignin.dart';
 
-class CoachLogin extends StatefulWidget {
-  CoachLogin({super.key});
+class StudentLogin extends StatefulWidget {
+  StudentLogin({super.key});
 
   @override
-  State<CoachLogin> createState() => _CoachLoginState();
+  State<StudentLogin> createState() => _StudentLoginState();
 }
 
-class _CoachLoginState extends State<CoachLogin> {
+class _StudentLoginState extends State<StudentLogin> {
+  late Future<UserCredential> userr;
   bool showspinner = false;
   CollectionReference coaches =
       FirebaseFirestore.instance.collection("Coaches");
@@ -49,7 +51,7 @@ class _CoachLoginState extends State<CoachLogin> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Coach Login",
+                  "Student Login",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Color.fromRGBO(83, 61, 229, 1),
@@ -182,6 +184,30 @@ class _CoachLoginState extends State<CoachLogin> {
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontFamily: "Cera"),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "OR ",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: "Cera"),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            userr = googleSignIn().signInWithGoogle();
+                            userr.then((value) =>
+                                Navigator.pushReplacementNamed(
+                                    context, '/studentdata'));
+                            setState(() {});
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                "https://blog.hubspot.com/hubfs/image8-2.jpg"),
+                            radius: 25,
                           ),
                         ),
                       ),

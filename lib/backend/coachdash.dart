@@ -84,6 +84,7 @@ class _coachDashboardState extends State<coachDashboard> {
                     content: Text("User is successfully signed out!"),
                   );
                   FirebaseAuth.instance.signOut();
+                  googleSignIn().signOutWithGoogle();
 
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.of(context).pushAndRemoveUntil(
