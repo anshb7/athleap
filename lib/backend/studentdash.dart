@@ -19,39 +19,22 @@ import 'package:athleap/backend/leaderboard.dart';
 import 'package:athleap/frontend/skeleton.dart';
 import 'package:athleap/frontend/shimmer.dart';
 
-class coachDashboard extends StatefulWidget {
-  const coachDashboard({super.key});
+class studentDashboard extends StatefulWidget {
+  const studentDashboard({super.key});
 
   @override
-  State<coachDashboard> createState() => _coachDashboardState();
+  State<studentDashboard> createState() => _studentDashboardState();
 }
 
-class _coachDashboardState extends State<coachDashboard> {
+class _studentDashboardState extends State<studentDashboard> {
   bool istrue = false;
   int ind = 0;
   var appbartitiles = ["Dashboard", "Leaderboard", "Coach Profile"];
   var screens = [studentslist(), LeaderboardPage(), coachprofile()];
   var user = FirebaseAuth.instance.currentUser;
-  String s = "";
-  studentInfo student = studentInfo(
-      name: "",
-      age: "",
-      speed: "",
-      agility: "",
-      coordination: "",
-      flexibility: "",
-      reactionTime: "",
-      strength: "");
 
   @override
   Widget build(BuildContext context) {
-    FirebaseFirestore.instance
-        .collection("Coaches")
-        .doc(user!.uid.toString())
-        .get()
-        .then((value) => {s = value.data()!['name']});
-    setState(() {});
-
     return Scaffold(
         backgroundColor: Color.fromRGBO(83, 61, 229, 1),
         bottomNavigationBar: CurvedNavigationBar(
@@ -111,28 +94,41 @@ class studentslist extends StatefulWidget {
 }
 
 class _studentslistState extends State<studentslist> {
+  String name = "";
+  String dob = "";
+  String academyName = "";
+  String coachName = "";
+  String sport = "";
+  void initState() {
+    FirebaseFirestore.instance
+        .collection("Students")
+        .doc(user!.uid.toString())
+        .get()
+        .then((value) {
+      setState(() {
+        name = value.data()!['name'];
+        dob = value.data()!['dob'];
+        academyName = value.data()!['academyName'];
+        coachName = value.data()!['coachName'];
+        sport = value.data()!['sportName'];
+      });
+    });
+    super.initState();
+  }
+
   var user = FirebaseAuth.instance.currentUser;
   String s = "";
-  studentInfo student = studentInfo(
-      name: "",
-      age: "",
-      speed: "",
-      agility: "",
-      coordination: "",
-      flexibility: "",
-      reactionTime: "",
-      strength: "");
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           child: Align(
             alignment: Alignment.bottomLeft,
             child: Text(
-              "Dashboard",
+              'Hi! ${name}',
               textAlign: TextAlign.left,
               style: TextStyle(
                   color: Color.fromRGBO(255, 202, 46, 1),
@@ -141,111 +137,60 @@ class _studentslistState extends State<studentslist> {
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection("Coaches")
-              .doc(user!.uid.toString())
-              .collection("Students")
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong');
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return MyWidget();
-                  },
-                ),
-              );
-            }
-
-            return RefreshIndicator(
-              strokeWidth: 3,
-              onRefresh: () async {
-                await FirebaseFirestore.instance
-                    .collection("Coaches")
-                    .doc(user!.uid.toString())
-                    .collection("Students")
-                    .snapshots();
-                setState(() {});
-              },
-              child: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    ListView(
-                      controller: ScrollController(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      children:
-                          snapshot.data!.docs.map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          elevation: 5,
-                          shadowColor: Color.fromRGBO(83, 61, 229, 1),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            tileColor: Color.fromRGBO(255, 202, 46, 1),
-                            onTap: () {
-                              student = studentInfo(
-                                  name: data['Name'],
-                                  age: data['Age'],
-                                  speed: data['speed'],
-                                  agility: data['agility'],
-                                  coordination: data['coordination'],
-                                  flexibility: data['flexibility'],
-                                  reactionTime: data['reactionTime'],
-                                  strength: data['strength']);
-
-                              setState(() {});
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProfilePage(student: student),
-                                  ));
-                            },
-                            leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
-                            ),
-                            title: Text(
-                              data['Name'],
-                              style: TextStyle(fontFamily: "Cera"),
-                            ),
-                            subtitle: Text(
-                              "Age: "
-                              "${data['Age'].toString()}",
-                              style: TextStyle(fontFamily: "Cera"),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            elevation: 0.8,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"),
+                          minRadius: 40,
+                        ),
+                        Text(
+                          "Sport: ${sport}",
+                          style: TextStyle(fontFamily: "Cera", fontSize: 20),
+                        )
+                      ]),
+                  Divider(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "DOB: ${dob}",
+                        style: TextStyle(fontFamily: "Cera", fontSize: 20),
+                      ),
+                      Text(
+                        "Academy Name: ${academyName}",
+                        style: TextStyle(fontFamily: "Cera", fontSize: 20),
+                      ),
+                      Text(
+                        "Coach Name: ${coachName}",
+                        style: TextStyle(fontFamily: "Cera", fontSize: 20),
+                      )
+                    ],
+                  ),
+                  Divider(),
+                ],
               ),
-            );
-          },
-        ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Color.fromRGBO(255, 202, 46, 1),
+              ),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.3,
+            ),
+          ),
+        )
       ],
     );
   }
