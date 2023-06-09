@@ -1,5 +1,6 @@
 import 'package:athleap/backend/coachdash.dart';
 import 'package:athleap/backend/profilepage.dart';
+import 'package:athleap/backend/studentdash.dart';
 import 'package:athleap/backend/studentlogin.dart';
 import 'package:athleap/frontend/landingpage.dart';
 import 'package:athleap/frontend/splash.dart';
@@ -20,6 +21,7 @@ import 'package:athleap/provider/googlesignin.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:athleap/backend/studentlogin.dart';
 import 'package:athleap/backend/studentdata.dart';
+import 'package:athleap/backend/studentdash.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +57,7 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) => StudentLogin(),
+            '/': (context) => studentDashboard(), //StudentLogin(),
             //Splash(), //islogin ? coachDashboard() : landingpage(),
             'loginscreen': (context) => HomeScreen(),
             '/coachlogin': (context) => CoachLogin(),
