@@ -62,6 +62,7 @@ class _MyAppState extends State<MyApp> {
             '/parentlogin': (context) => ParentLogin(),
             '/coachdata': (context) => CoachData(),
             '/studentdata': (context) => studentdata(),
+            '/studentlogin': (context) => StudentLogin()
           },
           theme: ThemeData(
               colorScheme: ColorScheme.fromSwatch().copyWith(

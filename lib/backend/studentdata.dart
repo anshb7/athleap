@@ -157,7 +157,6 @@ class _studentdataState extends State<studentdata> {
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.phone,
                                   validator: (value) {
                                     if (isAlpha(value.toString())) {
                                       return "Invalid Input";

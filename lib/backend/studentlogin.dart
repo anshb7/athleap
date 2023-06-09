@@ -3,6 +3,8 @@
 // import 'dart:html';
 import 'package:athleap/backend/coachdata.dart';
 import 'package:athleap/backend/register.dart';
+import 'package:athleap/backend/studentdata.dart';
+import 'package:athleap/backend/studentregister.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
@@ -159,7 +161,7 @@ class _StudentLoginState extends State<StudentLogin> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) => CoachData())));
+                                        builder: ((context) => studentdata())));
                               }
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'user-not-found') {
@@ -227,7 +229,7 @@ class _StudentLoginState extends State<StudentLogin> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) =>
-                                            RegisterUser())));
+                                            RegisterStudent())));
                               },
                               child: Text(
                                 "Sign up now!",
