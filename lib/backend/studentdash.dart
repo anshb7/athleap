@@ -1,6 +1,7 @@
 import 'package:athleap/backend/coachprofile.dart';
 import 'package:athleap/backend/leaderboard.dart';
 import 'package:athleap/backend/profilepage.dart';
+import 'package:athleap/frontend/landingpage.dart';
 import 'package:athleap/frontend/shimmer.dart';
 import 'package:athleap/info/studentinfo.dart';
 import 'package:athleap/main.dart';
@@ -72,7 +73,7 @@ class _studentDashboardState extends State<studentDashboard> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
+                        builder: (context) => landingpage(),
                       ),
                       (route) => false);
                 },
@@ -113,6 +114,15 @@ class _studentslistState extends State<studentslist> {
         sport = value.data()!['sportName'];
       });
     });
+    // FirebaseFirestore.instance
+    //     .collectionGroup("Coaches")
+    //     .where("name", isEqualTo: name)
+    //     .snapshots()
+    //     .listen((event) {
+    //   event.docs.forEach((element) {
+    //     print(element.data());
+    //   });
+    //});
     super.initState();
   }
 
@@ -128,7 +138,7 @@ class _studentslistState extends State<studentslist> {
           child: Align(
             alignment: Alignment.bottomLeft,
             child: Text(
-              'Hi! ${name}',
+              'Hi, ${name}!',
               textAlign: TextAlign.left,
               style: TextStyle(
                   color: Color.fromRGBO(255, 202, 46, 1),

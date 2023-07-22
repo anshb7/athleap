@@ -3,6 +3,7 @@
 // import 'dart:html';
 import 'package:athleap/backend/coachdata.dart';
 import 'package:athleap/backend/register.dart';
+import 'package:athleap/backend/studentdash.dart';
 import 'package:athleap/backend/studentdata.dart';
 import 'package:athleap/backend/studentregister.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +31,7 @@ class _StudentLoginState extends State<StudentLogin> {
   late Future<UserCredential> userr;
   bool showspinner = false;
   CollectionReference coaches =
-      FirebaseFirestore.instance.collection("Coaches");
+      FirebaseFirestore.instance.collection("Students");
   bool islogin = false;
   List<String> finaldocs = [];
 
@@ -156,7 +157,7 @@ class _StudentLoginState extends State<StudentLogin> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) =>
-                                            coachDashboard())));
+                                            studentDashboard())));
                               } else {
                                 Navigator.push(
                                     context,
@@ -201,9 +202,53 @@ class _StudentLoginState extends State<StudentLogin> {
                         child: GestureDetector(
                           onTap: () async {
                             userr = googleSignIn().signInWithGoogle();
-                            userr.then((value) =>
-                                Navigator.pushReplacementNamed(
-                                    context, '/studentdata'));
+                            userr.then((value) async {
+                              isTrue();
+
+                              setState(() {
+                                showspinner = true;
+                              });
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: email.text,
+                                        password: password.text);
+                                for (var i in finaldocs) {
+                                  if (i ==
+                                      FirebaseAuth.instance.currentUser!.uid) {
+                                    islogin = true;
+                                    break;
+                                  } else {
+                                    islogin = false;
+                                  }
+                                }
+                                setState(() {});
+
+                                if (islogin) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              studentDashboard())));
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              studentdata())));
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  print('No user found for that email.');
+                                } else if (e.code == 'wrong-password') {
+                                  print(
+                                      'Wrong password provided for that user.');
+                                }
+                              }
+                              setState(() {
+                                showspinner = false;
+                              });
+                            });
                             setState(() {});
                           },
                           child: CircleAvatar(
@@ -253,7 +298,7 @@ class _StudentLoginState extends State<StudentLogin> {
 
   Future isTrue() async {
     final QuerySnapshot result =
-        await FirebaseFirestore.instance.collection('Coaches').get();
+        await FirebaseFirestore.instance.collection('Students').get();
     final List<DocumentSnapshot> documents = result.docs;
     List<String> docIds = [];
     documents.forEach((element) {

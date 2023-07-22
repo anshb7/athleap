@@ -57,8 +57,8 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: {
-            '/': (context) => studentDashboard(), //StudentLogin(),
-            //Splash(), //islogin ? coachDashboard() : landingpage(),
+            '/': (context) => //studentDashboard(), //StudentLogin(),
+                Splash(),
             'loginscreen': (context) => HomeScreen(),
             '/coachlogin': (context) => CoachLogin(),
             '/parentlogin': (context) => ParentLogin(),
@@ -83,19 +83,21 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Color.fromRGBO(83, 61, 229, 1),
         body: Center(
             child: Container(
-          height: 200,
+          height: MediaQuery.of(context).size.height * 0.2,
           width: double.infinity,
           child: Column(children: [
             TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => ParentLogin())));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => StudentLogin())));
                 },
                 child: AutoSizeText(
                   "Are you a Student?",
                   style: TextStyle(
                     fontFamily: "Cera",
-                    fontSize: 45,
+                    fontSize: 40,
                     color: Color.fromRGBO(255, 202, 46, 1),
                   ),
                 )),
